@@ -11,3 +11,17 @@ class Solution {
         return uniqueList;
     }
 }
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        int[] numArr = new int [nums.length];
+        List<Integer> uniqueList = new ArrayList<>();
+        for (int num: nums) {
+            if (numArr[num - 1] != 0) {
+                uniqueList.add(num);
+            }
+            numArr[num - 1] = 1;
+        }
+        return uniqueList;
+    }
+}
