@@ -1,0 +1,13 @@
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        Set<Integer> uniqueSet = new HashSet<>();
+        List<Integer> uniqueList = new ArrayList<>();
+        for (int num: nums) {
+            if (uniqueSet.contains(num)) {
+                uniqueList.add(num);
+            }
+            uniqueSet.add(num);
+        }
+        return uniqueList;
+    }
+}
