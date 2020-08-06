@@ -1,0 +1,73 @@
+class WordDictionary {
+    /** Initialize your data structure here. */
+    private TrieNode dictionary;
+    public WordDictionary() {
+        dictionary = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        int idx = 0;
+        int length = word.length();
+        TrieNode curr = dictionary;
+        while(idx < length) {
+            char c = word.charAt(idx);
+            if (!curr.hasNode(c)) {
+                curr.addNode(c);
+            }
+            curr = curr.getTrieNode(c);
+            idx++;
+        }
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    public boolean search(String word) {
+        int idx = 0;
+        int length = word.length();
+        TrieNode curr = dictionary;
+        while(idx < length) {
+            char c = word.charAt(idx);
+            if (!Character.isLetter(c)) {
+                return false;
+            }
+            if (!curr.hasNode(c)) {
+                return false;
+            }
+            curr = curr.getTrieNode(c);
+            idx++;
+        }
+        return true;
+    }
+}
+
+class TrieNode {
+    private TrieNode[] trieNodes;
+    
+    public TrieNode() {
+        trieNodes = new TrieNode[26];
+        // for (int i = 0; i < trieNodes.length; ++i) {
+        //     trieNodes[i] = null;
+        // }
+    }
+    
+    public void addNode (char c ) {
+        TrieNode newNode = new TrieNode();
+        trieNodes[c - 'a'] = newNode;
+    }
+    
+    public boolean hasNode (char c) {
+        return trieNodes[c - 'a'] != null;
+    }
+    
+    public TrieNode getTrieNode(char c) {
+        return trieNodes[c - 'a'];
+    }
+    
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
