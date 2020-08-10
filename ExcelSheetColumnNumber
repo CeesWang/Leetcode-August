@@ -18,4 +18,15 @@ class Solution {
     }
 } 
 
+class Solution {
+    public int titleToNumber(String s) {
+    int column = 0;
+    for (char c : s.toCharArray()) {
+        column = column * 26 + (c - 'A') + 1;
+    }
+    return column;
+    }
+} // better solution
+
+
 
