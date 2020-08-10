@@ -1,0 +1,21 @@
+class Solution {
+    public int titleToNumber(String s) {
+        int column = 0;
+        int length = s.length();
+        int multiplier = 1;
+        if (length == 1) {
+            return (s.charAt(0) - 'A') + 1;
+        }
+        if (length == 2 ) {
+            return ((s.charAt(0) - 'A') + 1) * 26 + ((s.charAt(1) - 'A') + 1);
+        }
+        column += ((s.charAt(length -1) - 'A') + 1);
+        for (int i = length - 2; i >= 0; --i) {
+            multiplier *= 26;
+            column += (((s.charAt(i) - 'A') + 1) *multiplier);
+        }
+        return column;
+    }
+} 
+
+
