@@ -1,0 +1,63 @@
+class CombinationIterator {
+    private Queue<String> queue;
+    private int comboLength;
+    private HashSet<String> uniqSet;
+    public CombinationIterator(String characters, int combinationLength) {
+        queue = new LinkedList<>();
+        comboLength = combinationLength;
+        uniqSet = new HashSet<>();
+        if (comboLength == 1) {
+            for (int i = 0; i < characters.length(); ++i) {
+                queue.add(Character.toString(characters.charAt(i)));
+            }
+        }
+        else permutationsOfComboLength(characters.toCharArray(), 0, queue);
+    }
+    
+    public void permutationsOfComboLength(char[] characters, int idx, Queue<String> queue) {
+        if (characters.length - 1 == idx) {
+            if (inLexicographicalOrder(characters)) {
+                String s = new String(characters).substring(0,comboLength); 
+                if (!uniqSet.contains(s)) {
+                    queue.add(s);                    
+                }
+                uniqSet.add(s);
+            }
+        }
+        else {
+            for (int i = idx; i < characters.length; ++i) {
+                swap(characters, i, idx);
+                permutationsOfComboLength(characters, idx + 1, queue);
+                swap(characters, i, idx);                
+            }            
+        } 
+    }
+    public boolean inLexicographicalOrder(char[] characters) {
+        for (int i = 1; i < comboLength; ++i) {
+            if (characters[i] < characters[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }    
+    public void swap (char[] chars, int i, int j){
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp; 
+    }
+    
+    public String next() {
+        return queue.poll();    
+    }
+    
+    public boolean hasNext() {
+        return !queue.isEmpty();
+    }
+}
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator obj = new CombinationIterator(characters, combinationLength);
+ * String param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
