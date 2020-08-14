@@ -24,3 +24,26 @@ class Solution {
         return hasOdd ? longest + 1 : longest;
     }
 }
+
+class Solution {
+    public int longestPalindrome(String s) {
+        int longest = 0;
+        int arr [] = new int [52];
+        for (char c : s.toCharArray()) {
+            if (c - 'a' >= 0 && c - 'a' <= 26) {
+                arr[c - 'a']++;                
+            }
+            else {
+                arr[c - 'A' + 26]++;
+            }
+        }
+        for (int num : arr) {
+            if (num != 0) {
+                if (num % 2 == 0) longest += num;
+                else longest += (num - 1);               
+            }                
+        }
+
+        return longest < s.length() ? longest + 1 : longest;
+    }
+}
