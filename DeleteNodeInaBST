@@ -15,6 +15,12 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return root;
+        }
+        if (root.val == key && root.left == null && root.right == null) {
+            return null;
+        }
         dfs(root, key);
         return root;
     }
@@ -32,9 +38,17 @@ class Solution {
                 return;
             }
             if (node.val == target) {
-                if (node.left == null && node.right == null) {
-                    node.val = null;
-                    node = null;
+                if (node.left != null && node.right != null) {
+                    node.val = node.right.val;
+                    node.right = node.right.right;
+                }
+                else if (node.left != null) {
+                    node.val = node.left.val;
+                    node.left = node.left.left;
+                }
+                else {
+                    node.val = node.right.val;
+                    node.right = node.right.right;
                 }
             }
             else {
